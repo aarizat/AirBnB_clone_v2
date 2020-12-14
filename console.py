@@ -116,25 +116,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        """
-        try:
-            if not args:
-                raise SyntaxError
-            command = shlex.split(args)
-            obj = eval("{}()".format(command[0]))
-            for param in command[1:]:
-                p_list = param.split("=")
-                p = p_list[1].split('"')
-                for s in p[1]:
-                    s.replace('_', ' ')
-                setattr(obj, p[0], p[1])
-            obj.save()
-            print("{}".format(obj.id))
-        except SyntaxError:
-            print("** class name missing **")
-        except NameError:
-            print("** class doesn't exist **")
-        """
+
         command = args.split()
         if not args:
             print("** class name missing **")
