@@ -145,7 +145,7 @@ class HBNBCommand(cmd.Cmd):
         new_instance = HBNBCommand.classes[command[0]]()
         for param in command[1:]:
             p = param.split("=")
-            if p[1][0] == '"' and p[1][-1] == '"': #startswith('"') and endswith('"'):
+            if p[1][0] == '"' and p[1][-1] == '"':
                 valid = True
                 for idx, ch in enumerate(p[1][1:-1]):
                     if idx == 0 and ch == '"':
@@ -158,7 +158,7 @@ class HBNBCommand(cmd.Cmd):
                     p[1].replace('_', ' ')
                     setattr(new_instance, p[0], p[1].strip('"'))
                 if not valid:
-                    continue      
+                    continue
             else:
                 if p[1].isdigit():
                     setattr(new_instance, p[0], int(p[1]))
@@ -168,7 +168,6 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
         print(new_instance.id)
         storage.save()
-        
 
     def help_create(self):
         """ Help information for the create method """
