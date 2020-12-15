@@ -147,8 +147,8 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
             return
-        instance = HBNBCommand.classes[args[0]]()
-        instance.__dict__.update(new_dict)
+        instance = HBNBCommand.classes[args[0]](**new_dict)
+        #instance.__dict__.update(new_dict)
         instance.save()
         print(instance.id)
 
