@@ -15,16 +15,14 @@ class FileStorage:
                 del self.__objects[key]
             except:
                 pass
+            self.save()
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        if cls is not None:
-            objs = {}
-            for key, val in FileStorage.__objects.items():
-                if type(val) == cls:
-                    objs[key] = val
-            return objs
-        return FileStorage.__objects
+
+        if cls is None:
+            return self.__objects
+        return {k: v for k, v in self.__objects.items() if type(v) == cls}
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
