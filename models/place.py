@@ -1,11 +1,21 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey, Integer, Float
+from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 from sqlalchemy.orm import relationship
 from os import getenv
 from models.review import Review
+from models.amenity import Amenity
 import models
+
+
+if getenv("HBNB_TYPE_STORAGE") == "db":
+    place_amenity = Table(
+        "place_amenity", Base.metadata,
+        Column("place_id", String(60), ForeignKey(
+            "places.id"), primary_key=True, nullable=False),
+        Column("amenity_id", String(60), ForeignKey(
+            "amenities.id"), primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -24,6 +34,8 @@ class Place(BaseModel, Base):
     amenity_ids = []
     if getenv('HBNB_TYPE_STORAGE') == "db":
         reviews = relationship("Review", cascade="delete", backref="Place")
+        amenities = relationship("Amenity", secondary="place_amenity",
+                                 viewonly=False)
     else:
         @property
         def reviews(self):
@@ -33,3 +45,15 @@ class Place(BaseModel, Base):
                 if review.place_id == self.id:
                     review.append(review)
             return review_list
+
+        @property
+        def amenities(self):
+            """getter amenities id"""
+            return self.amenity_ids
+
+        @amenities.setter
+        def amenities(self, obj):
+            """setter attribute cities"""
+            if isinstance(obj, Amenity):
+                if obj.id not in self.amenity_ids:
+                    self.amenity_ids.append(obj.id)
