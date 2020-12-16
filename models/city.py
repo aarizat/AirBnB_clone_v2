@@ -13,7 +13,5 @@ class City(BaseModel, Base):
     places = relationship(
         "Place",
         cascade="delete",
-        backref="cities",
-        passive_deletes=True,
-        single_parent=True
+        backref="cities"
     )
