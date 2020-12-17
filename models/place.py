@@ -9,15 +9,11 @@ from models.amenity import Amenity
 import models
 
 
-# if getenv("HBNB_TYPE_STORAGE") == "db":
-place_amenity = Table(
-    "place_amenity", Base.metadata,
-    Column("place_id", String(60), ForeignKey(
-        "places.id", ondelete="CASCADE", onupdate="CASCADE"),
-        primary_key=True, nullable=False),
-    Column("amenity_id", String(60), ForeignKey(
-        "amenities.id", ondelete="CASCADE", onupdate="CASCADE"),
-        primary_key=True, nullable=False))
+place_amenity = Table("place_amenity", Base.metadata,
+                      Column("place_id", String(60), ForeignKey(
+                          "places.id"), primary_key=True, nullable=False),
+                      Column("amenity_id", String(60), ForeignKey(
+                          "amenities.id"), primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -37,8 +33,7 @@ class Place(BaseModel, Base):
         amenity_ids = []
         reviews = relationship("Review", cascade="delete", backref="Place")
         amenities = relationship("Amenity", secondary="place_amenity",
-                                 viewonly=False,
-                                 back_populates="place_amenities")
+                                 viewonly=False)
     else:
         city_id = user_id = name = description = ""
         number_rooms = number_bathrooms = max_guest = price_by_night = 0
