@@ -9,6 +9,17 @@ from models.amenity import Amenity
 import models
 
 
+place_amenity = Table("place_amenity", Base.metadata,
+                      Column("place_id", String(60), ForeignKey(
+                          "places.id", ondelete="CASCADE",
+                          onupdate="CASCADE"),
+                          primary_key=True, nullable=False),
+                      Column("amenity_id", String(60), ForeignKey(
+                          "amenities.id", ondelete="CASCADE",
+                          onupdate="CASCADE"),
+                          primary_key=True, nullable=False))
+
+
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
@@ -28,15 +39,6 @@ class Place(BaseModel, Base):
         amenities = relationship("Amenity", secondary="place_amenity",
                                  viewonly=False,
                                  back_populates="place_amenities")
-        place_amenity = Table("place_amenity", Base.metadata,
-                              Column("place_id", String(60), ForeignKey(
-                                  "places.id", ondelete="CASCADE",
-                                  onupdate="CASCADE"),
-                                  primary_key=True, nullable=False),
-                              Column("amenity_id", String(60), ForeignKey(
-                                  "amenities.id", ondelete="CASCADE",
-                                  onupdate="CASCADE"),
-                                  primary_key=True, nullable=False))
     else:
         city_id = user_id = name = description = ""
         number_rooms = number_bathrooms = max_guest = price_by_night = 0
