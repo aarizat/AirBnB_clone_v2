@@ -11,12 +11,8 @@ def do_pack():
     Compress a folder to .tgz archive.
     """
     date = datetime.utcnow()
-    path = "versions/web_static_{}{}{}{}{}{}.tgz".format(date.year,
-                                                         date.month,
-                                                         date.day,
-                                                         date.hour,
-                                                         date.minute,
-                                                         date.second)
+    path = "versions/web_static_{}.tgz".format(
+        datetime.strftime(date, "%Y%m%d%H%M%S"))
     if local("mkdir -p versions").failed:
         return
     if local("tar -cvzf {} web_static".format(path)).failed:
