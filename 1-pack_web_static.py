@@ -13,8 +13,7 @@ def do_pack():
     date = datetime.utcnow()
     path = "versions/web_static_{}.tgz".format(
         datetime.strftime(date, "%Y%m%d%H%M%S"))
-    if local("mkdir -p versions").failed:
-        return
+    local("mkdir -p versions")
     if local("tar -cvzf {} web_static".format(path)).failed:
         return
     return path
