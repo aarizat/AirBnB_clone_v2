@@ -22,8 +22,8 @@ def do_deploy(archive_path):
     server_path = "/data/web_static/releases/{}".format(file_tar[:-4])
     run("mkdir -p {}".format(server_path))  # create path in the remote server
     put(archive_path, "/tmp/")  # copy from local to remote
-    run("tar -xzf /tmp/{} -C {}".format(archive_path, server_path))
-    run("rm /tmp/{}".format(archive_path))
+    run("tar -xzf /tmp/{} -C {}".format(file_tar, server_path))
+    run("rm /tmp/{}".format(file_tar))
     run("mv -f {}/web_static/* {}/".format(server_path, server_path))
     run('rm -rf {}/web_static'.format(server_path))
     run("rm -rf /data/web_static/current")
