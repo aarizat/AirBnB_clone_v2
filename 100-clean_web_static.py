@@ -7,7 +7,7 @@ from fabric.api import run, local
 
 def do_clean(number=0):
     """
-    deletes out-of-date archives 
+    deletes out-of-date archives
     - If number is 0 or 1, keep only the most recent version of your
         archiveives.
     - if number is 2, keep the most recent, and second most recent versions
