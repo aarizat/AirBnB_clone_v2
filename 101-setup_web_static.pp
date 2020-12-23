@@ -3,7 +3,7 @@
 $nginx_conf = "server {
     listen 80 default_server;
     listen [::]:80 default_server;
-    add_header X-Served-By $HOSTNAME;
+    add_header X-Served-By ${hostname};
     root   /var/www/html;
     index  index.html index.htm;
     location /hbnb_static {
@@ -47,7 +47,7 @@ file { '/data/web_static/shared':
 
 file { '/data/web_static/releases/test/index.html':
   ensure  => 'present',
-  content => "Create fake HTML with simple content\n"
+  content => "Holberton School\n"
 } ->
 
 file { '/data/web_static/current':
@@ -69,7 +69,7 @@ file { '/var/www/html':
 
 file { '/var/www/html/index.html':
   ensure  => 'present',
-  content => "Create fake HTML with simple content\n"
+  content => "Holberton School\n"
 } ->
 
 file { '/var/www/html/404.html':
