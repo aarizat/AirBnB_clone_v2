@@ -15,12 +15,10 @@ app = Flask(__name__)
 @app.route("/states/<string:id>", strict_slashes=False)
 def fetch_state_and_cities(id=None):
     """Fetch states from DataBase"""
-    states = storage.all(State).values()
+    states = storage.all(State)
     if id is None:
         return render_template("9-states.html", states=states)
-    for state in states:
-        if state.id == id:
-            return render_template("9-states.html", state=state)
+    return render_template("9-states.html", states=states, id="State." + id)
 
 
 @app.teardown_appcontext
